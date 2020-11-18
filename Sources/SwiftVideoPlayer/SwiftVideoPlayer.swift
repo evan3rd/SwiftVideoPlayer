@@ -16,12 +16,12 @@ public class GPVideoPlayer: UIView {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var playPauseButton: UIButton!
-    @IBOutlet weak var volumeButton: UIButton!
+    @IBOutlet public weak var volumeButton: UIButton!
     @IBOutlet weak var playbackControlsViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var loaderView: LoaderView!
-    @IBOutlet weak var backwardButton: UIButton?
-    @IBOutlet weak var forwardButton: UIButton?
-    @IBOutlet weak var expandButton: UIButton?
+    @IBOutlet public weak var backwardButton: UIButton?
+    @IBOutlet public weak var forwardButton: UIButton?
+    @IBOutlet public  weak var expandButton: UIButton?
     
     //MARK: Internal Properties
     public var isMuted = true {
