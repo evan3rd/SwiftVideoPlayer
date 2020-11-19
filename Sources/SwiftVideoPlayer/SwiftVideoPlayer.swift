@@ -78,6 +78,10 @@ public class GPVideoPlayer: UIView {
     //MARK: Public Methods
     public class func initialize(with frame: CGRect) -> GPVideoPlayer? {
         let bundle = Bundle(for: GPVideoPlayer.self)
+        return self.initialize(with: bundle, frame: frame)
+    }
+    
+    public class func initialize(with bundle: Bundle, frame: CGRect) -> GPVideoPlayer? {
         let view = bundle.loadNibNamed(Constants.nibName, owner: self, options: nil)?.first as? GPVideoPlayer
         view?.frame = frame
         return view
