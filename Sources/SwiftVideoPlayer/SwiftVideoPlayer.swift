@@ -237,6 +237,15 @@ private extension GPVideoPlayer {
     @objc func playerEndedPlaying(_ notification: Notification) {
         DispatchQueue.main.async {[weak self] in
             if let playerItem = notification.object as? AVPlayerItem {
+                var safeCheck = false
+                self?.player?.items().forEach {
+                    if $0 === playerItem {
+                        safeCheck = true
+                    }
+                }
+                
+                guard safeCheck == true else { return }
+                
                 self?.player?.remove(playerItem)
                 playerItem.seek(to: .zero, completionHandler: nil)
                 self?.player?.insert(playerItem, after: nil)
