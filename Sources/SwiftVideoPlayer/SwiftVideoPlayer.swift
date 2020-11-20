@@ -13,7 +13,7 @@ import AVKit
 @available(iOS 10.0, *)
 public class GPVideoPlayer: UIView {
     //MARK: Outlets
-    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet public weak var progressBar: UIProgressView!
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet public weak var volumeButton: UIButton!
@@ -21,7 +21,7 @@ public class GPVideoPlayer: UIView {
     @IBOutlet weak var loaderView: LoaderView!
     @IBOutlet public weak var backwardButton: UIButton?
     @IBOutlet public weak var forwardButton: UIButton?
-    @IBOutlet public  weak var expandButton: UIButton?
+    @IBOutlet public weak var expandButton: UIButton?
     
     //MARK: Internal Properties
     public var isMuted = true {
@@ -237,6 +237,15 @@ private extension GPVideoPlayer {
     @objc func playerEndedPlaying(_ notification: Notification) {
         DispatchQueue.main.async {[weak self] in
             if let playerItem = notification.object as? AVPlayerItem {
+                var safeCheck = false
+                self?.player?.items().forEach {
+                    if $0 === playerItem {
+                        safeCheck = true
+                    }
+                }
+                
+                guard safeCheck == true else { return }
+                
                 self?.player?.remove(playerItem)
                 playerItem.seek(to: .zero, completionHandler: nil)
                 self?.player?.insert(playerItem, after: nil)
