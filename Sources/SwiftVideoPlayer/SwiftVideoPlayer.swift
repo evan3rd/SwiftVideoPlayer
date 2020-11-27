@@ -47,7 +47,7 @@ public class GPVideoPlayer: UIView {
         static let nibName = "GPVideoPlayer"
         static let rewindForwardDuration: Float64 = 10 //in seconds
     }
-    
+    private var timeObserver: Any?
     //MARK: Lifecycle Methods
     override public func layoutSubviews() {
         super.layoutSubviews()
@@ -56,6 +56,7 @@ public class GPVideoPlayer: UIView {
     
     deinit {
         player?.removeObserver(self, forKeyPath: "timeControlStatus")
+        player?.removeTimeObserver(timeObserver as Any)
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -195,7 +196,7 @@ private extension GPVideoPlayer {
         
         let player = AVQueuePlayer(items: playerItems)
         self.playerItems = playerItems
-        player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 2), queue: DispatchQueue.main) {[weak self] (progressTime) in
+        timeObserver = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 2), queue: DispatchQueue.main) {[weak self] (progressTime) in
             if let duration = player.currentItem?.duration {
                 
                 let durationSeconds = CMTimeGetSeconds(duration)
