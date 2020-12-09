@@ -15,7 +15,7 @@ public class GPVideoPlayer: UIView {
     //MARK: Outlets
     @IBOutlet public weak var progressBar: UIProgressView!
     @IBOutlet weak var videoView: UIView!
-    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet public weak var playPauseButton: UIButton!
     @IBOutlet public weak var volumeButton: UIButton!
     @IBOutlet weak var playbackControlsViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var loaderView: LoaderView!
